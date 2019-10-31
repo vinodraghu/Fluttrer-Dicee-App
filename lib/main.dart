@@ -1,43 +1,57 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'magicball.dart';
+import 'package:dicee/audioplay.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 void main() {
   return runApp(
     MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.red,
-        appBar: AppBar(
-          title: Text('Dicee'),
-          backgroundColor: Colors.red,
-        ),
-        body: DicePage(),
+        body: MagicBallL(),
       ),
     ),
   );
 }
 
-class DicePage extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  @override
+  _DicePageState createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
+  int leftDiceNumber = 1;
+  int rightDiceNumber = 1;
+
+  void setDicee() {
+    setState(() {
+      leftDiceNumber = Random().nextInt(6) + 1;
+      rightDiceNumber = Random().nextInt(6) + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var left_dice_number = 5;
     return Center(
       child: Row(
         children: <Widget>[
           Expanded(
             //flex: 1,
             child: FlatButton(
-              onPressed: (){
-                print("Left button click");
+              onPressed: () {
+                setDicee();
               },
-              child: Image.asset("images/dice$left_dice_number.png"),
+              child: Image.asset("images/dice$leftDiceNumber.png"),
             ),
           ),
           Expanded(
             //flex: 2,
             child: FlatButton(
               onPressed: () {
-                print("Right button click");
+                setDicee();
               },
-              child: Image.asset("images/dice1.png"),
+              child: Image.asset("images/dice$rightDiceNumber.png"),
             ),
           ),
         ],
