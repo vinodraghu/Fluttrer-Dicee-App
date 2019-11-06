@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'magicball.dart';
 import 'package:dicee/audioplay.dart';
-import 'package:audioplayers/audio_cache.dart';
+import 'package:dicee/quizzler.dart';
 
-void main() {
-  return runApp(
-    MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.red,
-        body: MagicBallL(),
-      ),
-    ),
-  );
-}
+//void main() {
+//  return runApp(
+//    MaterialApp(
+//      home: Scaffold(
+//        backgroundColor: Colors.red,
+//        body: AudioPlay(),
+//      ),
+//    ),
+//  );
+//}
+
+void main() => runApp(Quizzler());
 
 class DicePage extends StatefulWidget {
   @override
