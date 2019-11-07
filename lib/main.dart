@@ -3,6 +3,7 @@ import 'dart:math';
 import 'magicball.dart';
 import 'package:dicee/audioplay.dart';
 import 'package:dicee/quizzler.dart';
+import 'destini.dart';
 
 //void main() {
 //  return runApp(
@@ -15,7 +16,7 @@ import 'package:dicee/quizzler.dart';
 //  );
 //}
 
-void main() => runApp(Quizzler());
+void main() => runApp(Destini());
 
 class DicePage extends StatefulWidget {
   @override

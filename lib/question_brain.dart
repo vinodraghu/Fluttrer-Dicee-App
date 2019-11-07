@@ -4,22 +4,22 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 class QuestionBrain {
   int _quastion_number = 0;
+  int _resultCount = 0;
 
   List<Question> _questionBank = [
-    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-    Question(
-        q: 'Approximately one quarter of human bones are in the feet.',
-        a: true),
-    Question(q: 'A slug\'s blood is green.', a: true),
+    Question('You can lead a cow down stairs but not up stairs.', false),
+    Question('Approximately one quarter of human bones are in the feet.', true),
+    Question('A slug\'s blood is green.', true),
   ];
 
   List<Icon> _scoreKeeper = [];
 
-  void nextQuestion(bool userPickAnswer,BuildContext con) {
+  void nextQuestion(bool userPickAnswer, BuildContext con) {
     if (_quastion_number < _questionBank.length - 1) {
       bool qAnswer = getQuestionAnswer();
 
       if (qAnswer == userPickAnswer) {
+        _resultCount++;
         _scoreKeeper.add(Icon(
           Icons.check,
           color: Colors.green,
@@ -32,9 +32,24 @@ class QuestionBrain {
       }
       _quastion_number++;
     } else {
+
+      bool qAnswer = getQuestionAnswer();
+
+      if (qAnswer == userPickAnswer) {
+        _resultCount++;
+        _scoreKeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        _scoreKeeper.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
       _quastion_number = 0;
       _scoreKeeper.clear();
-     onAlertButtonPressed(con);
+      onAlertButtonPressed(con);
     }
   }
 
@@ -53,17 +68,18 @@ class QuestionBrain {
   onAlertButtonPressed(con) {
     Alert(
       context: con,
-      type: AlertType.error,
-      title: "RFLUTTER ALERT",
-      desc: "Flutter is more awesome with RFlutter Alert.",
+      type: AlertType.info,
+      title: "ALERT",
+      desc: "Result $_resultCount",
       buttons: [
         DialogButton(
           child: Text(
-            "COOL",
+            "Ok",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
             _quastion_number = 0;
+            _resultCount = 0;
             _scoreKeeper.clear();
             Navigator.pop(con);
           },
