@@ -4,6 +4,7 @@ import 'magicball.dart';
 import 'package:dicee/audioplay.dart';
 import 'package:dicee/quizzler.dart';
 import 'destini.dart';
+import 'bmicalculator.dart';
 
 //void main() {
 //  return runApp(
@@ -16,7 +17,7 @@ import 'destini.dart';
 //  );
 //}
 
-void main() => runApp(Destini());
+void main() => runApp(BMICalculator());
 
 class DicePage extends StatefulWidget {
   @override
