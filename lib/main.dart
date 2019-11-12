@@ -4,7 +4,7 @@ import 'magicball.dart';
 import 'package:dicee/audioplay.dart';
 import 'package:dicee/quizzler.dart';
 import 'destini.dart';
-import 'bmicalculator.dart';
+import 'screens/bmicalculator.dart';
 
 //void main() {
 //  return runApp(

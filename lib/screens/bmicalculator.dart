@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'reusablecontainer.dart';
-import 'gendercard.dart';
-import 'const.dart';
+import '../components/reusablecontainer.dart';
+import '../gendercard.dart';
+import '../const.dart';
+import 'bmicalculator_result.dart';
+import '../components/roundedbutton.dart';
+import '../components/bottombutton.dart';
+import 'package:dicee/calculatorbrain.dart';
 
 enum genderChoose { male, female }
 
@@ -40,6 +44,7 @@ class _InputPageState extends State<InputPage> {
   genderChoose selectedGender;
   int height = 180;
   int weight = 75;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +183,6 @@ class _InputPageState extends State<InputPage> {
                                   setState(() {
                                     weight--;
                                   });
-
                                 },
                               ),
                             ],
@@ -190,15 +194,63 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                     child: ReusableContainer(
                       colour: kactiveCardColour,
+                      containerChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "AGE",
+                            style: ktextStyle,
+                          ),
+                          Text(
+                            age.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundedButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPresed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                },
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              RoundedButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPresed: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                },
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              color: kbottomContainerColour,
-              width: double.infinity,
-              height: kbottomContainerHeight,
+            BottomButton(
+              bText: 'RESULT',
+              onTab: () {
+                CalculatorBrain calculateb = CalculatorBrain(height: height,weight: weight);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BMICalculatorResult(
+                      bmiResult: calculateb.calculateBMI(),
+                      bmiResultText: calculateb.getResult(),
+                      interPretation: calculateb.interPretation(),
+                    ),
+                  ),
+                );
+              },
             )
           ],
         )
@@ -212,21 +264,6 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
-class RoundedButton extends StatelessWidget {
-  RoundedButton({@required this.icon, @required this.onPresed});
 
-  final IconData icon;
-  final Function onPresed;
 
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: onPresed,
-      child: Icon(icon),
-      shape: CircleBorder(),
-      elevation: 0.0,
-      constraints: BoxConstraints.tightFor(height: 56.0, width: 56.0),
-      fillColor: Color(0xFF4C4F5E),
-    );
-  }
-}
+
